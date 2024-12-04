@@ -23,14 +23,30 @@ body, html {
     color: white;
     font-size: 50px;         /* Font size for the first line */
     margin: 0;
+    opacity: 0; /* Start with hidden text */
+    animation: fadeIn 3s ease-in forwards; /* Apply the fadeIn animation */
+}
+@keyframes fadeIn {
+    to {
+        opacity: 1; /* End with fully visible text */
+    }
 }
 
 .line2 {
     color: white;
     font-size: 120px;         /* Font size for the second line */
     margin: 0;
+    animation: typing 3s steps(7) 1s forwards, blink 0.75s step-end infinite;
     
 }
+@keyframes typing {
+    from {
+      width: 0; /* Start with no text visible */
+    }
+    to {
+      width: 100%; /* End with the entire text visible */
+    }
+  }
 
 
 
@@ -76,3 +92,7 @@ body, html {
     background: white;
     color: #6a11cb;
 }
+
+
+
+
