@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <link rel="stylesheet" href="form.css">
+    <style>
+      body {
+            margin: 20px;
+            background: linear-gradient(120deg, #7b07c3, #3d3a37);
+        }
+        .form-container {
+            background-color: white; /* White background for the form */
+            padding: 20px; /* Space inside the box */
+            border-radius: 8px; /* Rounded corners */
+            box-shadow: 0 5px 15px rgba(236, 233, 233, 0.6);
+            max-width: 600px; /* Optional: limit the width of the form */
+            margin: 0 auto; /* Center the form on the page */
+            max-width: 900px;
+   
+        }
+        .hidden {
+            display: none;
+        }
+        input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="tel"],
+input[type="number"],
+select,
+textarea {
+    width: 100%; /* Set width to full */
+    padding: 10px; /* Add some padding for better usability */
+    margin: 10px 0; /* Add margin for spacing */
+    border: 1px solid #ccc; /* Optional: add a border */
+    border-radius: 4px; /* Optional: add rounded corners */
+    box-sizing: border-box; /* Ensure padding is included in the width */
+}
+        button {
+            background-color: #007BFF;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            display: block;
+            margin: 0 auto;
+        }
+        form {
+            width: 100%;
+            
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        h1 {
+            color: #320585;
+        }
+        
+        .moving-elements {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        .circle {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.1); /* Light white background */
+    border-radius: 50%; /* Make it circular */
+    animation: move 10s linear infinite; /* Animation for movement */
+    pointer-events: none; /* Prevent mouse events on circles */
+}
+
+@keyframes move {
+    0% {
+        transform: translate(-100px, -100px) scale(0.5); /* Start position */
+    }
+    50% {
+        transform: translate(50vw, 50vh) scale(1.5); /* Middle position */
+    }
+    100% {
+        transform: translate(100vw, 100vh) scale(0.5); /* End position */
+    }
+}
+    </style>
+    <script>
+      const movingElements = document.querySelector('.moving-elements');
+const numberOfCircles = 20; // Number of circles to create
+
+for (let i = 0; i < numberOfCircles; i++) {
+    const circle = document.createElement('div');
+    const size = Math.random() * 100 + 50; // Random size between 50px and 150px
+    const left = Math.random() * 100; // Random left position (percentage)
+    const top = Math.random() * 100; // Random top position (percentage)
+
+    circle.className = 'circle';
+    circle.style.width = `${size}px`;
+    circle.style.height = `${size}px`;
+    circle.style.left = `${left}vw`; // Use viewport width for positioning
+    circle.style.top = `${top}vh`; // Use viewport height for positioning
+
+    movingElements.appendChild(circle);
+}
+    </script>
+</head>
+<body>
+  <div class="moving-elements">
+    <div class="circle" style="width: 100px; height: 100px; top: 10%; left: 10%;"></div>
+    <div class="circle" style="width: 150px; height: 150px; top: 50%; left: 30%;"></div>
+    <div class="circle" style="width: 200px; height: 200px; top: 80%; left: 70%;"></div>
+    <div class="circle" style="width: 120px; height: 120px; top: 20%; left: 80%;"></div>
+    <div class="circle" style="width: 180px; height: 180px; top: 60%; left: 20%;"></div>
+    <div class="circle" style="width: 90px; height: 90px; top: 40%; left: 50%;"></div>
+    <div class="circle" style="width: 160px; height: 160px; top: 70%; left: 10%;"></div>
+    <div class="circle" style="width: 130px; height: 130px; top: 30%; left: 40%;"></div>
+</div>
+    <div class="form-container">
+        <form action="" method="get">
+            <!-- Your existing form content goes here -->
+            
+            <h1 class="heading" style="text-align:center">Registration Form</h1>
+            <hr>
+            <p>The fields marked * are mandatory.</p>
+            <h2 style="text-decoration: underline;">Login Details</h2>
+            <p>Username* :- <input type="text" name="username" required placeholder="swati.15"></p>
+            <p>Password* :- <input type="password" name="password" required placeholder="@1234swati"></p>
+            <h2  style="text-decoration: underline;">Contact Imformation</h2>
+    <p>Name* :- <input type="text" name="name" required placeholder="Swati Mittal"></p>
+    
+        <fieldset>
+            <legend><b>Gender*</b></legend>
+            <p>Male <input type="radio" name="gender" required> Female <input type="radio" name="gender" required></p>
+            
+        </fieldset>
+        
+      <p>Age*:-<input type="number" id="age" name="age" min="1" max="120" placeholder="25" required></p>
+    <p>Email* :- <input type="email" name="Email" required placeholder="swatimittal98776@gmail.com"></p>
+
+    <label for="contact-number">Contact Number*:-</label>
+    <input type="tel" id="contact-number" name="contact-number" placeholder="85726XXXX" required>
+    <br>
+    <br>
+    <label for="country">Nationality*:-</label>
+  <select id="country" name="country">
+    <option value="" disabled selected>Loading...</option>
+  </select>
+
+  <script>
+   
+    fetch('https://restcountries.com/v3.1/all')
+      .then(response => response.json())
+      .then(data => {
+        const countryDropdown = document.getElementById('country');
+        countryDropdown.innerHTML = ''; // Clear the loading text
+        data.sort((a, b) => a.name.common.localeCompare(b.name.common)); // Sort alphabetically
+        data.forEach(country => {
+          const option = document.createElement('option');
+          option.value = country.cca2; // Country code as value
+          option.textContent = country.name.common; // Country name
+          countryDropdown.appendChild(option);
+        });
+      })
+      .catch(error => {
+        console.error('Error fetching countries:', error);
+      });
+  </script>
+
+    <h2  style="text-decoration: underline;">Educational Qualifications</h2>
+    <p></p> Course*:- 
+        <select name="Card type" required>
+            <option value="">--Select--</option>
+            <option value="B.Tech/BE">B.Tech/B.E.</option>
+            <option value="BCA">BCA</option>
+            <option value="BSc">BSc.</option>
+        </select>
+        <p>Current Year Of Study*:- <input type="number"></p>
+        <p>Skills* :-  </p><textarea id="skills" name="skills" rows="4" cols="30" placeholder="Enter your skills, separated by commas (e.g., HTML, CSS, JavaScript)" required></textarea>
+      
+       
+        <form id="experience-form">
+            <!-- Ask if the user has experience -->
+           <p><label for="experience" style="font-weight: bold; font-size: large;">Do you have any prior work experience?*</label><br>
+          <input type="checkbox" id="experience-yes" name="experience" value="yes" onchange="toggleExperienceFields(true)"> Yes
+            <input type="checkbox" id="experience-no" name="experience" value="no" onchange="toggleExperienceFields(false)"> No</p>
+          
+        
+           
+            <div id="experience-fields" class="hidden">
+              <label for="company-name">Company Name:</label><br>
+              <input type="text" id="company-name" name="company-name" placeholder="Enter company name" required><br><br>
+        
+              <label for="role">Role:</label><br>
+              <input type="text" id="role" name="role" placeholder="Enter your role" required><br><br>
+        
+              <label for="duration">Duration:</label><br>
+              <input type="text" id="duration" name="duration" placeholder="e.g., 2 years" required><br><br>
+        
+              <label for="projects">Projects (if any):</label><br>
+              <textarea id="projects" name="projects" rows="4" cols="50" placeholder="Briefly describe the projects you worked on"></textarea><br><br>
+            </div>
+        
+          </form>
+        
+          <script>
+            function toggleExperienceFields(show) {
+              const experienceFields = document.getElementById("experience-fields");
+              if (show) {
+                experienceFields.classList.remove("hidden");
+                document.getElementById("company-name").setAttribute("required", "true");
+                document.getElementById("role").setAttribute("required", "true");
+                document.getElementById("duration").setAttribute("required", "true");
+              } else {
+                experienceFields.classList.add("hidden");
+                document.getElementById("company-name").removeAttribute("required");
+                document.getElementById("role").removeAttribute("required");
+                document.getElementById("duration").removeAttribute("required");
+              }
+            }
+         </script>
+           
+
+            <button type="submit">Register</button>
+        </form>
+    </div>
+</body>
+</html>

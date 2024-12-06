@@ -3,25 +3,118 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>genMail Login</title>
-    <link rel="stylesheet" href="login.css">
+    <title>GenMail - Cold Email Generator</title>
+    <style>
+        /* Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body styling */
+        body {
+            height: 100vh;
+            background: linear-gradient(120deg, #6a11cb, #2575fc);
+            background-size: 200% 200%;
+            animation: gradientMove 12s ease infinite;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            overflow: hidden;
+        }
+
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Navigation bar */
+        .nav {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav a {
+            text-decoration: none;
+            color: white;
+            font-size: 1em;
+            font-weight: bold;
+            padding: 10px 20px;
+            border: 2px solid white;
+            border-radius: 20px;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .nav a:hover {
+            background: white;
+            color: #6a11cb;
+        }
+
+        /* Main branding */
+        #genMail {
+            text-align: center;
+            font-size: 4em;
+            font-weight: bold;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        #genMail p {
+            font-size: 1em;
+            font-weight: normal;
+            margin-top: 15px;
+        }
+
+        /* Animated Sparkles */
+        .sparkles {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.6;
+            animation: sparkle 7s linear infinite;
+        }
+
+        @keyframes sparkle {
+            0% {
+                transform: translateY(0) scale(0.5);
+                opacity: 0.6;
+            }
+            50% {
+                transform: translateY(-30px) scale(1.2);
+                opacity: 0.3;
+            }
+            100% {
+                transform: translateY(0) scale(0.5);
+                opacity: 0;
+            }
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Welcome to GenMail</h1>
-        <form action="#" method="POST">
-            <div class="input-group">
-                <label for="username">Username</label>
-                <input type="text" id="username" name="username" required>
-            </div>
-            <div class="input-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" required>
-            </div>
-            <button type="submit">Login</button>
-        </form>
-        <p class="signup-link">Don't have an account? <a href="#">Sign up here</a></p>
-        <p class="footer">© 2023 genMail. All rights reserved.</p>
+    <!-- Navigation -->
+    <div class="nav">
+        <a href="#login">Login</a>
+        <a href="#signup">Sign Up</a>
     </div>
+
+    <!-- Main Branding -->
+    <div id="genMail">
+        GenMail
+        <p>AI-Powered Cold Email Generator</p>
+    </div>
+
+    <!-- Animated Sparkles -->
+    <div class="sparkles" style="top: 20%; left: 50%; animation-delay: 0s;"></div>
+    <div class="sparkles" style="top: 40%; left: 70%; animation-delay: 2s;"></div>
+    <div class="sparkles" style="top: 60%; left: 30%; animation-delay: 4s;"></div>
+    <div class="sparkles" style="top: 80%; left: 90%; animation-delay: 6s;"></div>
 </body>
 </html>
