@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cold Email Generator</title>
+    <link rel="stylesheet" href="cold_mail_generator.css"> <!-- Link to external CSS file -->
+</head>
+<body>
+    <div class="container">
+        <h1>Cold Email Generator</h1>
+        <div class="boxes-container">
+            <!-- Left box (empty) -->
+            
+            
+            <!-- Right box (form) -->
+            <div class="box right-box">
+                <label for="company-url">Company URL:</label>
+                <input type="url" id="company-url" placeholder="https://example.com">
+
+                <label for="tone">Tone of the Email:</label>
+                <select id="tone">
+                    <option value="formal">Formal</option>
+                    <option value="informal">Informal</option>
+                    <option value="friendly">Friendly</option>
+                    <option value="persuassive">Persuassive</option>
+                </select>
+                <button id="generate-mail" type="button">Generate Mail</button>
+            </div>
+            <div class="box left-box"></div>
+        </div>
+    </div>
+</body>
+</html>

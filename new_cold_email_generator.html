@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cold Email Generator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(120deg, #6a11cb, #2575fc);
+            background-size: 200% 200%;
+            animation: gradientMove 12s ease infinite;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #333;
+            padding: 40px 0;
+        }
+
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 1200px;
+            backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+        }
+
+        h1 {
+            text-align: center;
+            color: #6a11cb;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .boxes-container {
+            display: flex;
+            gap: 20px;
+            height: 600px;
+        }
+
+        .box {
+            flex: 1;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #2575fc;
+        }
+
+        input[type="url"], select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #6a11cb;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        input[type="url"]:focus, select:focus {
+            outline: none;
+            border-color: #2575fc;
+            box-shadow: 0 0 0 3px rgba(37, 117, 252, 0.1);
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #6a11cb;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.1s ease;
+            margin-top: auto;
+        }
+
+        button:hover {
+            background-color: #2575fc;
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        #generated-email {
+            white-space: pre-wrap;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+            padding: 15px;
+            background-color: #f8f8f8;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            flex-grow: 1;
+            overflow-y: auto;
+            transition: background-color 0.3s ease;
+        }
+
+        #generated-email:hover {
+            background-color: #f0f0f0;
+        }
+
+        .sparkle {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background-color: white;
+            opacity: 0.5;
+            animation: twinkle 5s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.5; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                width: 95%;
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            .boxes-container {
+                flex-direction: column;
+                height: auto;
+            }
+
+            .box {
+                height: 400px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="sparkle" style="top: 10%; left: 5%;"></div>
+    <div class="sparkle" style="top: 20%; left: 95%;"></div>
+    <div class="sparkle" style="top: 80%; left: 10%;"></div>
+    <div class="sparkle" style="top: 40%; left: 90%;"></div>
+    <div class="sparkle" style="top: 60%; left: 15%;"></div>
+
+    <div class="container">
+        <h1>Cold Email Generator</h1>
+        <div class="boxes-container">
+            <div class="box">
+                <form id="email-form">
+                    <div class="form-group">
+                        <label for="company-url">Company URL:</label>
+                        <input type="url" id="company-url" placeholder="https://example.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tone">Tone of the Email:</label>
+                        <select id="tone" required>
+                            <option value="">Select a tone</option>
+                            <option value="formal">Formal</option>
+                            <option value="informal">Informal</option>
+                            <option value="friendly">Friendly</option>
+                            <option value="persuasive">Persuasive</option>
+                        </select>
+                    </div>
+
+                    <button type="submit">Generate Email</button>
+                </form>
+            </div>
+            <div class="box">
+                <h2>Generated Email:</h2>
+                <div id="generated-email"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('email-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const companyUrl = document.getElementById('company-url').value;
+            const tone = document.getElementById('tone').value;
+            
+            // Simulate email generation (replace this with actual API call or generation logic)
+            const generatedEmail = generateEmail(companyUrl, tone);
+            
+            document.getElementById('generated-email').textContent = generatedEmail;
+        });
+
+        function generateEmail(companyUrl, tone) {
+            // This is a placeholder function. Replace it with your actual email generation logic.
+            const companyName = new URL(companyUrl).hostname.replace('www.', '').split('.')[0];
+            const toneAdjective = {
+                'formal': 'esteemed',
+                'informal': 'awesome',
+                'friendly': 'fantastic',
+                'persuasive': 'innovative'
+            }[tone];
+
+            return `Subject: Exciting Opportunity for Collaboration
+
+Dear ${companyName.charAt(0).toUpperCase() + companyName.slice(1)} Team,
+
+I hope this email finds you well. I recently came across your ${toneAdjective} company at ${companyUrl} and was thoroughly impressed by your work in the industry.
+
+[Your personalized message based on the company's website content would go here.]
+
+I believe there's a great opportunity for us to collaborate and create something truly special. Would you be open to a brief call next week to discuss how we might work together?
+
+Looking forward to the possibility of connecting.
+
+Best regards,
+[Your Name]
+[Your Company]`;
+        }
+    </script>
+</body>
+</html>
