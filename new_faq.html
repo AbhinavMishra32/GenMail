@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ Component</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <style>
+        @font-face {
+            font-family: 'Plus Jakarta Sans';
+            font-weight: 400;
+            src: url("https://cdn.rareblocks.xyz/fonts/PlusJakartaSans/PlusJakartaSans-Regular.woff") format("woff2");
+        }
+        
+        @font-face {
+            font-family: 'Plus Jakarta Sans';
+            font-weight: 500;
+            src: url("https://cdn.rareblocks.xyz/fonts/PlusJakartaSans/PlusJakartaSans-Medium.woff") format("woff2");
+        }
+        
+        @font-face {
+            font-family: 'Plus Jakarta Sans';
+            font-weight: 700;
+            src: url("https://cdn.rareblocks.xyz/fonts/PlusJakartaSans/PlusJakartaSans-Bold.woff") format("woff2");
+        }
+
+        .font-pj {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(120deg, #6a11cb, #2575fc);
+            background-size: 200% 200%;
+            animation: gradientMove 12s ease infinite;
+        }
+
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .sparkle {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background-color: white;
+            opacity: 0.5;
+            animation: twinkle 5s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'pj': ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+</head>
+<body class="flex items-center justify-center transition-all duration-300 ease-in-out">
+    <div class="sparkle" style="top: 10%; left: 5%;"></div>
+    <div class="sparkle" style="top: 20%; left: 95%;"></div>
+    <div class="sparkle" style="top: 80%; left: 10%;"></div>
+    <div class="sparkle" style="top: 40%; left: 90%;"></div>
+    <div class="sparkle" style="top: 60%; left: 15%;"></div>
+    <section class="py-12 bg-white bg-opacity-90 sm:py-16 lg:py-20 rounded-lg shadow-xl max-w-7xl mx-auto my-12">
+        <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h2 class="text-3xl font-bold text-gray-900 sm:text-4xl xl:text-5xl font-pj">Frequently Asked Questions</h2>
+                <p class="max-w-md mx-auto mt-6 text-base text-gray-600 font-pj">Your queries ends here!!.</p>
+            </div>
+
+            <div class="max-w-3xl mx-auto mt-8 sm:mt-14">
+                <div class="space-y-4">
+                    <div class="relative overflow-hidden bg-white bg-opacity-80 border border-gray-200 rounded-lg" x-data="{ expanded: false }">
+                        <div class="absolute inset-0">
+                            <div class="absolute inset-y-0 left-0 w-full bg-gradient-to-r from-pink-400 via-purple-500 to-indigo-500 opacity-30 blur-lg"></div>
+                        </div>
+                        <div class="relative overflow-hidden bg-white bg-opacity-90 rounded-lg">
+                            <h3>
+                                <button @click="expanded = !expanded" :aria-expanded="expanded" class="flex items-center justify-between w-full px-6 py-5 text-lg font-bold text-left text-gray-900 sm:p-6 font-pj transition-colors duration-200 ease-in-out hover:text-gray-600">
+                                    <span>What is Cold email?</span>
+                                    <span class="ml-4">
+                                        <svg class="w-6 h-6 text-gray-900 transition-transform duration-200 ease-in-out" :class="{ 'rotate-180': expanded }" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                        </svg>
+                                    </span>
+                                </button>
+                            </h3>
+
+                            <div x-show="expanded" x-collapse>
+                                <div class="px-6 pb-6 sm:px-6 sm:pb-6">
+                                    A cold email is an unsolicited message sent to someone you’ve never contacted before, often for networking or sales. It’s a powerful way to introduce yourself, pitch an idea, or showcase value. A great cold email is short, personalized, and grabs attention!
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="relative overflow-hidden bg-white bg-opacity-80 border border-gray-200 rounded-lg" x-data="{ expanded: false }">
+                        <div class="absolute inset-0">
+                            <div class="absolute inset-y-0 left-0 w-full bg-gradient-to-r from-yellow-400 via-green-500 to-blue-500 opacity-30 blur-lg"></div>
+                        </div>
+                        <div class="relative overflow-hidden bg-white bg-opacity-90 rounded-lg">
+                            <h3>
+                                <button @click="expanded = !expanded" :aria-expanded="expanded" class="flex items-center justify-between w-full px-6 py-5 text-lg font-bold text-left text-gray-900 sm:p-6 font-pj transition-colors duration-200 ease-in-out hover:text-gray-600">
+                                    <span>How to edit the personal details filled during registration?</span>
+                                    <span class="ml-4">
+                                        <svg class="w-6 h-6 text-gray-900 transition-transform duration-200 ease-in-out" :class="{ 'rotate-180': expanded }" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                        </svg>
+                                    </span>
+                                </button>
+                            </h3>
+
+                            <div x-show="expanded" x-collapse>
+                                <div class="px-6 pb-6 sm:px-6 sm:pb-6">
+                                    My-profile > Edit-profile > Do changes > Confirm changes
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="relative overflow-hidden bg-white bg-opacity-80 border border-gray-200 rounded-lg" x-data="{ expanded: false }">
+                        <div class="absolute inset-0">
+                            <div class="absolute inset-y-0 left-0 w-full bg-gradient-to-r from-red-400 via-orange-500 to-yellow-500 opacity-30 blur-lg"></div>
+                        </div>
+                        <div class="relative overflow-hidden bg-white bg-opacity-90 rounded-lg">
+                            <h3>
+                                <button @click="expanded = !expanded" :aria-expanded="expanded" class="flex items-center justify-between w-full px-6 py-5 text-lg font-bold text-left text-gray-900 sm:p-6 font-pj transition-colors duration-200 ease-in-out hover:text-gray-600">
+                                    <span>What are the details necessary to generate a cold email?</span>
+                                    <span class="ml-4">
+                                        <svg class="w-6 h-6 text-gray-900 transition-transform duration-200 ease-in-out" :class="{ 'rotate-180': expanded }" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                        </svg>
+                                    </span>
+                                </button>
+                            </h3>
+
+                            <div x-show="expanded" x-collapse>
+                                <div class="px-6 pb-6 sm:px-6 sm:pb-6">
+                                    To generate a cold email basic details like name,age,course persuing or completed ,phone number,email-id,gender,work experience(if any) and skills you currently have is required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="relative overflow-hidden bg-white bg-opacity-80 border border-gray-200 rounded-lg" x-data="{ expanded: false }">
+                        <div class="absolute inset-0">
+                            <div class="absolute inset-y-0 left-0 w-full bg-gradient-to-r from-teal-400 via-cyan-500 to-blue-500 opacity-30 blur-lg"></div>
+                        </div>
+                        <div class="relative overflow-hidden bg-white bg-opacity-90 rounded-lg">
+                            <h3>
+                                <button @click="expanded = !expanded" :aria-expanded="expanded" class="flex items-center justify-between w-full px-6 py-5 text-lg font-bold text-left text-gray-900 sm:p-6 font-pj transition-colors duration-200 ease-in-out hover:text-gray-600">
+                                    <span>For any issue, whom to contact?</span>
+                                    <span class="ml-4">
+                                        <svg class="w-6 h-6 text-gray-900 transition-transform duration-200 ease-in-out" :class="{ 'rotate-180': expanded }" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                        </svg>
+                                    </span>
+                                </button>
+                            </h3>
+
+                            <div x-show="expanded" x-collapse>
+                                <div class="px-6 pb-6 sm:px-6 sm:pb-6">
+                                    If you have any issue or query just go to Contact Us option on the top right hand corner of your front page
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
+
