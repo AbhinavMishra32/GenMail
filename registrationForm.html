@@ -58,6 +58,7 @@ textarea {
             color: #320585;
         }
         
+        
         .moving-elements {
             position: absolute;
             width: 100%;
@@ -73,7 +74,43 @@ textarea {
     animation: move 10s linear infinite; /* Animation for movement */
     pointer-events: none; /* Prevent mouse events on circles */
 }
+.nav {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    display: flex;
+    gap: 15px;
+}
 
+.nav a {
+    text-decoration: none;
+    color: white;
+    font-size: 1em;
+    font-weight: bold;
+    padding: 10px 20px;
+    border: 2px solid white;
+    border-radius: 20px;
+    transition: background 0.3s, color 0.3s;
+}
+
+.nav a:hover {
+    background: white;
+    color: #6a11cb;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
 @keyframes move {
     0% {
         transform: translate(-100px, -100px) scale(0.5); /* Start position */
@@ -107,6 +144,10 @@ for (let i = 0; i < numberOfCircles; i++) {
     </script>
 </head>
 <body>
+  <div class="nav">
+    <a href="front_page.html">Home</a>
+    <a href="FAQ.html">FAQs</a>
+</div>
   <div class="moving-elements">
     <div class="circle" style="width: 100px; height: 100px; top: 10%; left: 10%;"></div>
     <div class="circle" style="width: 150px; height: 150px; top: 50%; left: 30%;"></div>
@@ -223,6 +264,8 @@ for (let i = 0; i < numberOfCircles; i++) {
            
 
             <button type="submit">Register</button>
+          
+
         </form>
     </div>
 </body>
