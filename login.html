@@ -3,162 +3,339 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GenMail - Login</title>
+    <title>Login - GenMail</title>
     <style>
-        /* Reset */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
         }
 
-        /* Body Styling */
         body {
-            height: 100vh;
+            min-height: 100vh;
+            background-color: #0a0b14;
             display: flex;
-            justify-content: center;
-            align-items: center;
-            background: linear-gradient(120deg, #7b07c3, #3d3a37);
-            overflow: hidden;
-            font-family: Arial, sans-serif;
+            flex-direction: column;
             color: white;
         }
-        .nav {
-    position: absolute;
-    top: 20px;
-    right: 30px;
-    display: flex;
-    gap: 15px;
-}
 
-.nav a {
-    text-decoration: none;
-    color: white;
-    font-size: 1em;
-    font-weight: bold;
-    padding: 10px 20px;
-    border: 2px solid white;
-    border-radius: 20px;
-    transition: background 0.3s, color 0.3s;
-}
-
-.nav a:hover {
-    background: white;
-    color: #6a11cb;
-}
-
-        /* Login Container */
-        .login-container {
-            background: #f4f1f1;
-            border-radius: 15px;
-            padding: 30px 40px;
-            width: 300px;
-            box-shadow: 0 5px 15px rgba(236, 233, 233, 0.6);
-            text-align: center;
-        }
-
-        .login-container h1 {
-            color: #320585;
-            margin-bottom: 20px;
-            font-size: 1.8em;
-        }
-
-        /* Input Fields */
-        .login-container input {
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 4rem;
+            position: fixed;
             width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            background: #e9e2e2;
-            border: 1px solid #b19cd9;
-            border-radius: 5px;
-            color: rgb(20, 20, 20);
-            font-size: 1em;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            background: rgba(10, 11, 20, 0.95);
+            backdrop-filter: blur(10px);
         }
 
-        .login-container input::placeholder {
-            color: #b19cd9;
-        }
-
-        /* Button */
-        .login-container button {
-            width: 100%;
-            padding: 10px;
-            background: #6531c6;
-            border: none;
-            border-radius: 5px;
-            color: rgb(230, 219, 219);
-            font-size: 1em;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-
-        .login-container button:hover {
-            background: #861dd1;
-        }
-
-        /* Footer Text */
-        .login-container p {
-            margin-top: 15px;
-            color: #3f1490;
-            font-size: 0.9em;
-        }
-
-        .login-container a {
-            color: #320585;
-            text-decoration: none;
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.5rem;
             font-weight: bold;
+            color: white;
+            text-decoration: none;
         }
 
-        .login-container a:hover {
+        .logo-icon {
+            /* background: #0066ff; */
+            /* padding: 0.5rem; */
+            border-radius: 8px;
+            height: 55px;
+            width: 55px;
+        }
+        .logo-icon img {
+    width: 100%;        /* Make the image take the full width of the container */
+    height: 100%;       /* Make the image take the full height of the container */
+    object-fit: cover;  /* Ensure the image covers the container without distortion */
+    border-radius: 9px; /* Optional: to match the border radius of the container */
+}
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #0066ff;
+        }
+
+
+        .btn {
+            padding: 0.6rem 1.2rem;
+            border-radius: 6px;
+            font-weight: 500;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: #0066ff;
+            color: white;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background: #0052cc;
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .login-container {
+            width: 100%;
+            max-width: 400px;
+            margin: auto;
+            padding: 2rem;
+        }
+
+        .login-card {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 2.5rem;
+            border-radius: 24px;
+            box-shadow: 0 8px 32px rgba(0, 102, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            animation: cardFloat 6s ease-in-out infinite;
+        }
+
+        @keyframes cardFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .login-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            text-align: center;
+            background: linear-gradient(90deg, #0066ff, #00ccff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+        }
+
+        .form-input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #0066ff;
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 0 4px rgba(0, 102, 255, 0.1);
+        }
+
+        .login-button {
+            width: 100%;
+            padding: 1rem;
+            border: none;
+            border-radius: 12px;
+            background: #0066ff;
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .login-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(0, 102, 255, 0.3);
+        }
+
+        .signup-link {
+            text-align: center;
+            margin-top: 1.5rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .signup-link a {
+            color: #0066ff;
+            text-decoration: none;
+            font-weight: 600;
+            margin-left: 0.5rem;
+        }
+
+        .signup-link a:hover {
             text-decoration: underline;
         }
-        .moving-elements {
-            position: absolute;
+
+        .background-shapes {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-            overflow: hidden;
             z-index: -1;
+            overflow: hidden;
         }
 
-        .circle {
+        .shape {
             position: absolute;
-            background: rgba(255, 255, 255, 0.1);
             border-radius: 50%;
-            animation: move 10s linear infinite;
+            background: rgba(0, 102, 255, 0.1);
+            animation: shapeFloat 20s infinite;
+            backdrop-filter: blur(40px);
         }
 
-        @keyframes move {
-            0% {
-                transform: translate(-100px, -100px) scale(0.5);
+        .shape:nth-child(1) {
+            width: 300px;
+            height: 300px;
+            top: -150px;
+            left: -150px;
+            animation-delay: 0s;
+        }
+
+        .shape:nth-child(2) {
+            width: 400px;
+            height: 400px;
+            bottom: -200px;
+            right: -200px;
+            animation-delay: -5s;
+        }
+
+        .shape:nth-child(3) {
+            width: 200px;
+            height: 200px;
+            top: 50%;
+            left: 50%;
+            animation-delay: -10s;
+        }
+
+        @keyframes shapeFloat {
+            0%, 100% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+            25% {
+                transform: translate(50px, 50px) rotate(90deg);
             }
             50% {
-                transform: translate(50vw, 50vh) scale(1.5);
+                transform: translate(0, 100px) rotate(180deg);
             }
-            100% {
-                transform: translate(100vw, 100vh) scale(0.5);
+            75% {
+                transform: translate(-50px, 50px) rotate(270deg);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 1rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .login-container {
+                padding: 1rem;
+            }
+
+            .login-card {
+                padding: 2rem;
             }
         }
     </style>
 </head>
 <body>
-    <div class="nav">
-        <a href="front_page.html">Home</a>
-        <a href="FAQ.html">FAQs</a>
+    <nav class="navbar">
+        <a href="#" class="logo">
+            <span class="logo-icon"><img src="./logo_genmail.jpg"></span>
+            GenMail
+        </a>
+        <div class="nav-links">
+            <a href="landing_page.html" class="btn btn-secondary">Home</a>
+            <a href="#features">Features</a>
+            <a href="#pricing">Pricing</a>
+         <a href="./FAQ.html">FAQ</a>
+            <a href="#signup" class="btn btn-primary">Sign Up →</a>
+        </div>
+    </nav>
+
+    <div class="background-shapes">
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
     </div>
-    
+
     <div class="login-container">
-        <h1>Login</h1>
-        <form>
-            <input type="text" placeholder="Username" required>
-            <input type="password" placeholder="Password" required>
-            <button type="submit">Login</button>
-        </form>
-        <p>Don't have an account? <a href="registrationForm.html">Sign Up</a></p>
+        <div class="login-card">
+            <h1 class="login-title">Welcome Back</h1>
+            <form id="loginForm">
+                <div class="form-group">
+                    <input type="text" class="form-input" placeholder="Username" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-input" placeholder="Password" required>
+                </div>
+                <button type="submit" class="login-button">Login</button>
+                <div class="signup-link">
+                    Don't have an account?<a href="/signup">Sign Up</a>
+                </div>
+            </form>
+        </div>
     </div>
-    <div class="moving-elements">
-        <div class="circle" style="width: 100px; height: 100px; top: 10%; left: 10%;"></div>
-        <div class="circle" style="width: 150px; height: 150px; top: 50%; left: 30%;"></div>
-        <div class="circle" style="width: 200px; height: 200px; top: 80%; left: 70%;"></div>
-    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            // Add login logic here
+            console.log('Login attempted');
+        });
+
+        // Add subtle parallax effect to shapes
+        document.addEventListener('mousemove', function(e) {
+            const shapes = document.querySelectorAll('.shape');
+            const mouseX = e.clientX / window.innerWidth;
+            const mouseY = e.clientY / window.innerHeight;
+
+            shapes.forEach((shape, index) => {
+                const speed = (index + 1) * 20;
+                const x = (mouseX - 0.5) * speed;
+                const y = (mouseY - 0.5) * speed;
+                shape.style.transform = `translate(${x}px, ${y}px)`;
+            });
+        });
+    </script>
 </body>
 </html>
