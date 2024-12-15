@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GenMail - Cold Email Generator</title>
+    <style>
+        :root {
+            --primary: #007bff;
+            --primary-dark: #0056b3;
+            --background: #0a0a0f;
+            --foreground: #ffffff;
+            --muted: #64748b;
+            --border: #1f2937;
+            --card-bg: rgba(255, 255, 255, 0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        body {
+            background-color: var(--background);
+            color: var(--foreground);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            /* background: #0066ff; */
+            /* padding: 0.5rem; */
+            border-radius: 8px;
+            height: 55px;
+            width: 55px;
+        }
+        .logo-icon img {
+    width: 100%;        /* Make the image take the full width of the container */
+    height: 100%;       /* Make the image take the full height of the container */
+    object-fit: cover;  /* Ensure the image covers the container without distortion */
+    border-radius: 9px; /* Optional: to match the border radius of the container */
+}
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #0066ff;
+        }
+
+        .btn {
+            padding: 0.6rem 1.2rem;
+            border-radius: 6px;
+            font-weight: 500;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: #0066ff;
+            color: white;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background: #0052cc;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+            
+
+        .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 4rem;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    transition: all 0.3s ease;
+    background: rgba(10, 11, 20, 0.95);
+    backdrop-filter: blur(10px);
+    height: 60px; /* Set a fixed height */
+    margin-top: 1rem;
+}
+
+.container {
+    max-width: 1200px; /* Keep your existing max-width */
+    margin: 2rem auto; /* Center the container */
+    padding: 2rem; /* Existing padding */
+    padding-top: 80px; /* Add padding to push content below the navbar */
+    opacity: 0; /* Existing styles */
+    transform: translateY(20px); /* Existing styles */
+    animation: fadeInUp 1s ease-out forwards; /* Existing styles */
+}
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-align: center;
+            background: linear-gradient(90deg, #007bff, #00bfff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientFlow 5s ease infinite;
+            background-size: 200% 200%;
+        }
+
+        @keyframes gradientFlow {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .subtitle {
+            text-align: center;
+            color: var(--muted);
+            margin-bottom: 2rem;
+            font-size: 1.2rem;
+        }
+
+        .generator-container {
+            display: flex;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .input-section, .preview-section {
+            flex: 1;
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .input-section:hover, .preview-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 12px rgba(0, 123, 255, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+           
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--foreground);
+            font-weight: 500;
+        }
+/* 
+        input, select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--foreground);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        } */
+      
+input::placeholder, select option[disabled] {
+    color: var(--muted); /* Use the same muted color for the placeholder */
+}
+input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.05);
+    color: black; /* Ensure input text is also black */
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.05);
+    color: black; /* Change the text color to black for other options */
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+select option {
+    color: black; /* Set the color of all options to black */
+}
+
+select option[disabled] {
+    color: var(--muted); /* Use the same muted color for the placeholder */
+}
+
+/* Hide the placeholder option from the dropdown */
+select option[value=""] {
+    display: none; /* This will hide the placeholder option from the dropdown */
+}
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+        }
+
+        button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        button:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 123, 255, 0.1);
+        }
+
+        #emailPreview {
+            white-space: pre-wrap;
+            font-family: 'Courier New', Courier, monospace;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 1rem;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+            min-height: 200px;
+        }
+
+        .copy-button {
+            margin-top: 1rem;
+            background: var(--muted);
+        }
+
+        .copy-button:hover {
+            background: var(--primary);
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            margin-top: 1rem;
+            font-size: 1.2rem;
+            color: var(--primary);
+        }
+
+        .loading::after {
+            content: "⚙️ Generating";
+            animation: ellipsis 1.5s infinite;
+        }
+
+        @keyframes ellipsis {
+            0% { content: "⚙️ Generating"; }
+            33% { content: "⚙️ Generating."; }
+            66% { content: "⚙️ Generating.."; }
+            100% { content: "⚙️ Generating..."; }
+        }
+
+        @media (max-width: 768px) {
+            .generator-container {
+                flex-direction: column;
+            }
+            h1 {
+                font-size: 2.5rem;
+            }
+        }
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 1rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="#" class="logo">
+            <span class="logo-icon"><img src="./logo_genmail.jpg"></span>
+            GenMail
+        </a>
+        <div class="nav-links">
+            <a href="landing_page.html" class="btn btn-secondary">Home</a>
+            <a href="#features">Features</a>
+            <a href="#pricing">Pricing</a>
+         <a href="./login.html">Login</a>
+            <a href="#signup" class="btn btn-primary">Sign Up →</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>Cold Email Generator</h1>
+        <p class="subtitle">Craft personalized and effective cold emails with AI-powered precision</p>
+
+        <div class="generator-container">
+            <div class="input-section">
+                <form id="emailForm">
+                    <div class="form-group">
+                        <label for="companyUrl">Company URL:</label>
+                        <input type="url" id="companyUrl" required placeholder="https://example.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="emailTone">Email Tone:</label>
+                        <select id="emailTone" required>
+                            <option value=""  style="color:rgb(200, 187, 187)">Select Tone</option>
+                            <option value="formal">Formal</option>
+                            <option value="informal">Informal</option>
+                            <option value="friendly">Friendly</option>
+                            <option value="persuasive">Persuasive</option>
+                        </select>
+                    </div>
+                    <script>
+                        document.getElementById('emailTone').addEventListener('change', function() {
+    if (this.value === "") {
+        this.style.color = 'var(--muted)'; // Change to placeholder color
+    } else {
+        this.style.color = 'black'; // Change to black for other options
+    }
+});
+                    </script>
+                    <button type="submit">Generate Email</button>
+                </form>
+                <div class="loading" id="loadingIndicator"></div>
+            </div>
+            <div class="preview-section">
+                <h2>Email Preview</h2>
+                <pre id="emailPreview">Your generated email will appear here...</pre>
+                <button class="copy-button" onclick="copyToClipboard()">Copy to Clipboard</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('emailForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            generateEmail();
+        });
+
+        function generateEmail() {
+            const companyUrl = document.getElementById('companyUrl').value;
+            const emailTone = document.getElementById('emailTone').value;
+
+            document.getElementById('loadingIndicator').style.display = 'block';
+
+            // Simulate API call with setTimeout
+            setTimeout(() => {
+                const emailContent = generateEmailContent(companyUrl, emailTone);
+                document.getElementById('emailPreview').textContent = emailContent;
+                document.getElementById('loadingIndicator').style.display = 'none';
+            }, 2000);
+        }
+
+        function generateEmailContent(companyUrl, emailTone) {
+            const companyName = new URL(companyUrl).hostname.replace('www.', '').split('.')[0];
+            let greeting, body, closing;
+
+            switch(emailTone) {
+                case 'formal':
+                    greeting = `Dear ${companyName} Team,`;
+                    body = `I hope this email finds you well. I recently came across ${companyUrl} and was impressed by your company's innovative approach in the industry. I believe our services could be of great value to ${companyName}, particularly in enhancing your [specific area] operations.`;
+                    closing = `I would appreciate the opportunity to discuss how we can tailor our solutions to meet your specific needs. Would you be available for a brief call next week to explore this further?`;
+                    break;
+                case 'friendly':
+                    greeting = `Hi there ${companyName} folks,`;
+                    body = `I hope you're having a great week! I stumbled upon ${companyUrl} and I've got to say, I'm really excited about what you're doing. I think there might be some awesome ways we could work together to take things to the next level, especially when it comes to [specific area].`;
+                    closing = `I'd love to hop on a quick, no-pressure call to chat about some ideas. What do you say we pencil something in for next week?`;
+                    break;
+                case 'persuasive':
+                    greeting = `Hello ${companyName} Team,`;
+                    body = `What if I told you there's a way to significantly boost your [specific metric] at ${companyName}? After reviewing ${companyUrl}, I'm convinced that our solution could be a game-changer for your operations, particularly in [specific area].`;
+                    closing = `Many companies in your industry have seen [specific result] after implementing our services. I'm confident that after a brief discussion, you'll see the immense potential of this opportunity. Can we schedule a 15-minute call this week to explore how we can drive similar results for ${companyName}?`;
+                    break;
+                case 'urgent':
+                    greeting = `Attention ${companyName} Team,`;
+                    body = `I have some time-sensitive information that I believe is crucial for ${companyName}. After analyzing ${companyUrl}, it's clear that you're missing out on a significant opportunity in [specific area]. Our solution can address this immediately and potentially save you [specific amount/percentage] in the next quarter alone.`;
+                    closing = `This offer is only available for a limited time, and I wouldn't want you to miss out. Can we hop on a quick call tomorrow to discuss how we can fast-track this solution for ${companyName}?`;
+                    break;
+            }
+
+            return `${greeting}
+
+${body}
+
+${closing}
+
+Looking forward to connecting,
+[Your Name]
+[Your Company]`;
+        }
+
+        function copyToClipboard() {
+            const emailContent = document.getElementById('emailPreview').textContent;
+            navigator.clipboard.writeText(emailContent).then(() => {
+                alert('Email copied to clipboard!');
+            });
+        }
+    </script>
+</body>
+</html>
+

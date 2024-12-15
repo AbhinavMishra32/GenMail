@@ -3,270 +3,499 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registration Form</title>
-    <link rel="stylesheet" href="form.css">
+    <title>GenMail Registration</title>
     <style>
-      body {
-            margin: 20px;
-            background: linear-gradient(120deg, #7b07c3, #3d3a37);
+        :root {
+            --primary: #007bff;
+            --background: #0a0a0f;
+            --foreground: #ffffff;
+            --muted: #64748b;
+            --border: #1f2937;
         }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        body {
+            background-color: var(--background);
+            color: var(--foreground);
+            line-height: 1.6;
+        }
+
+        
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .header p {
+            color: var(--muted);
+        }
+
         .form-container {
-            background-color: white; /* White background for the form */
-            padding: 20px; /* Space inside the box */
-            border-radius: 8px; /* Rounded corners */
-            box-shadow: 0 5px 15px rgba(236, 233, 233, 0.6);
-            max-width: 600px; /* Optional: limit the width of the form */
-            margin: 0 auto; /* Center the form on the page */
-            max-width: 900px;
-   
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            padding: 2rem;
+            border: 1px solid var(--border);
         }
-        .hidden {
-            display: none;
+
+        .form-section {
+            margin-bottom: 2rem;
         }
-        input[type="text"],
-input[type="password"],
-input[type="email"],
-input[type="tel"],
-input[type="number"],
-select,
-textarea {
-    width: 100%; /* Set width to full */
-    padding: 10px; /* Add some padding for better usability */
-    margin: 10px 0; /* Add margin for spacing */
-    border: 1px solid #ccc; /* Optional: add a border */
-    border-radius: 4px; /* Optional: add rounded corners */
-    box-sizing: border-box; /* Ensure padding is included in the width */
-}
-        button {
-            background-color: #007BFF;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
+
+        .form-section h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
             display: block;
-            margin: 0 auto;
-        }
-        form {
-            width: 100%;
-            
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-        h1 {
-            color: #320585;
-        }
-        
-        
-        .moving-elements {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            z-index: -1;
+            margin-bottom: 0.5rem;
+            color: var(--foreground);
         }
 
-        .circle {
-    position: absolute;
-    background: rgba(255, 255, 255, 0.1); /* Light white background */
-    border-radius: 50%; /* Make it circular */
-    animation: move 10s linear infinite; /* Animation for movement */
-    pointer-events: none; /* Prevent mouse events on circles */
-}
-.nav {
-    position: absolute;
-    top: 20px;
-    right: 30px;
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--foreground);
+            font-size: 1rem;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .radio-group label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .required {
+            color: #ff4444;
+        }
+
+        .submit-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.2s;
+        }
+
+        .submit-btn:hover {
+            background: #0056b3;
+        }
+
+        .error {
+            color: #ff4444;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+                margin: 1rem;
+            }
+
+            .form-container {
+                padding: 1rem;
+            }
+        }
+
+        /* Updated Navbar styles */
+        .navbar {
     display: flex;
-    gap: 15px;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 4rem;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    transition: all 0.3s ease;
+    background: rgba(10, 11, 20, 0.95);
+    backdrop-filter: blur(10px);
+    height: 60px; /* Set a fixed height */
+    margin-top: 1rem;
 }
 
-.nav a {
-    text-decoration: none;
-    color: white;
-    font-size: 1em;
-    font-weight: bold;
-    padding: 10px 20px;
-    border: 2px solid white;
-    border-radius: 20px;
-    transition: background 0.3s, color 0.3s;
+.container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem;
+    padding-top: 80px; /* Adjust this value based on your navbar height */
 }
 
-.nav a:hover {
-    background: white;
-    color: #6a11cb;
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            /* background: #0066ff; */
+            /* padding: 0.5rem; */
+            border-radius: 8px;
+            height: 55px;
+            width: 55px;
+        }
+        .logo-icon img {
+    width: 100%;        /* Make the image take the full width of the container */
+    height: 100%;       /* Make the image take the full height of the container */
+    object-fit: cover;  /* Ensure the image covers the container without distortion */
+    border-radius: 9px; /* Optional: to match the border radius of the container */
 }
 
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
 
-.close:hover
-.close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-}
-@keyframes move {
-    0% {
-        transform: translate(-100px, -100px) scale(0.5); /* Start position */
-    }
-    50% {
-        transform: translate(50vw, 50vh) scale(1.5); /* Middle position */
-    }
-    100% {
-        transform: translate(100vw, 100vh) scale(0.5); /* End position */
-    }
-}
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #0066ff;
+        }
+
+        .btn {
+            padding: 0.6rem 1.2rem;
+            border-radius: 6px;
+            font-weight: 500;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: #0066ff;
+            color: white;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background: #0052cc;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        
+
+        
+      
+
+      
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 1rem;
+            }
+
+            .nav-links {
+                display: none;
+            } 
+        }
     </style>
-    <script>
-      const movingElements = document.querySelector('.moving-elements');
-const numberOfCircles = 20; // Number of circles to create
-
-for (let i = 0; i < numberOfCircles; i++) {
-    const circle = document.createElement('div');
-    const size = Math.random() * 100 + 50; // Random size between 50px and 150px
-    const left = Math.random() * 100; // Random left position (percentage)
-    const top = Math.random() * 100; // Random top position (percentage)
-
-    circle.className = 'circle';
-    circle.style.width = `${size}px`;
-    circle.style.height = `${size}px`;
-    circle.style.left = `${left}vw`; // Use viewport width for positioning
-    circle.style.top = `${top}vh`; // Use viewport height for positioning
-
-    movingElements.appendChild(circle);
-}
-    </script>
 </head>
 <body>
-  <div class="nav">
-    <a href="front_page.html">Home</a>
-    <a href="FAQ.html">FAQs</a>
-</div>
-  <div class="moving-elements">
-    <div class="circle" style="width: 100px; height: 100px; top: 10%; left: 10%;"></div>
-    <div class="circle" style="width: 150px; height: 150px; top: 50%; left: 30%;"></div>
-    <div class="circle" style="width: 200px; height: 200px; top: 80%; left: 70%;"></div>
-    <div class="circle" style="width: 120px; height: 120px; top: 20%; left: 80%;"></div>
-    <div class="circle" style="width: 180px; height: 180px; top: 60%; left: 20%;"></div>
-    <div class="circle" style="width: 90px; height: 90px; top: 40%; left: 50%;"></div>
-    <div class="circle" style="width: 160px; height: 160px; top: 70%; left: 10%;"></div>
-    <div class="circle" style="width: 130px; height: 130px; top: 30%; left: 40%;"></div>
-</div>
-    <div class="form-container">
-        <form action="connect.php" method="post">
-            <!-- Your existing form content goes here -->
-            
-            <h1 class="heading" style="text-align:center">Registration Form</h1>
-            <hr>
-            <p>The fields marked * are mandatory.</p>
-            <h2 style="text-decoration: underline;">Login Details</h2>
-            <p>Username* :- <input type="text" name="username" required placeholder="swati.15"></p>
-            <p>Password* :- <input type="password" name="password" required placeholder="@1234swati"></p>
-            <h2  style="text-decoration: underline;">Contact Imformation</h2>
-    <p>Name* :- <input type="text" name="name" required placeholder="Swati Mittal"></p>
-    
-        <fieldset>
-            <legend><b>Gender*</b></legend>
-            <p>Male <input type="radio" name="gender" required> Female <input type="radio" name="gender" required></p>
-            
-        </fieldset>
-        
-      <p>Age*:-<input type="number" id="age" name="age" min="1" max="120" placeholder="25" required></p>
-    <p>Email* :- <input type="email" name="Email" required placeholder="swatimittal98776@gmail.com"></p>
+  <nav class="navbar">
+    <a href="#" class="logo">
+        <span class="logo-icon"><img src="./logo_genmail.jpg"></span>
+        GenMail
+    </a>
+    <div class="nav-links">
+        <a href="landing_page.html" class="btn btn-secondary">Home</a>
+        <a href="#features">Features</a>
+        <a href="#pricing">Pricing</a>
+     <a href="./FAQ.html">FAQ</a>
+        <a href="#signup" class="btn btn-primary">Sign Up →</a>
+    </div>
+</nav>
+    <div class="container">
+        <div class="header">
+            <h1>Welcome to <span style="color: var(--primary);">GenMail</span></h1>
+            <p>Complete your registration to get started</p>
+        </div>
 
-    <label for="contact-number">Contact Number*:-</label>
-    <input type="tel" id="contact-number" name="contact-number" placeholder="85726XXXX" required>
-    <br>
-    <br>
-    <label for="country">Nationality*:-</label>
-  <select id="country" name="country">
-    <option value="" disabled selected>Loading...</option>
-  </select>
-
-  <script>
-   
-    fetch('https://restcountries.com/v3.1/all')
-      .then(response => response.json())
-      .then(data => {
-        const countryDropdown = document.getElementById('country');
-        countryDropdown.innerHTML = ''; // Clear the loading text
-        data.sort((a, b) => a.name.common.localeCompare(b.name.common)); // Sort alphabetically
-        data.forEach(country => {
-          const option = document.createElement('option');
-          option.value = country.cca2; // Country code as value
-          option.textContent = country.name.common; // Country name
-          countryDropdown.appendChild(option);
-        });
-      })
-      .catch(error => {
-        console.error('Error fetching countries:', error);
-      });
-  </script>
-
-    <h2  style="text-decoration: underline;">Educational Qualifications</h2>
-    <p></p> Course*:- 
-        <select name="Cardtype" required>
-            <option value="">--Select--</option>
-            <option value="B.Tech/BE">B.Tech/B.E.</option>
-            <option value="BCA">BCA</option>
-            <option value="BSc">BSc.</option>
-        </select>
-        <p>Current Year Of Study*:- <input type="number"></p>
-        <p>Skills* :-  </p><textarea id="skills" name="skills" rows="4" cols="30" placeholder="Enter your skills, separated by commas (e.g., HTML, CSS, JavaScript)" required></textarea>
-      
-       
-        <form id="experience-form">
-            <!-- Ask if the user has experience -->
-           <p><label for="experience" style="font-weight: bold; font-size: large;">Do you have any prior work experience?*</label><br>
-          <input type="checkbox" id="experience-yes" name="experience" value="yes" onchange="toggleExperienceFields(true)"> Yes
-            <input type="checkbox" id="experience-no" name="experience" value="no" onchange="toggleExperienceFields(false)"> No</p>
-          
-        
-           
-            <div id="experience-fields" class="hidden">
-              <label for="company-name">Company Name:</label><br>
-              <input type="text" id="company-name" name="companyname" placeholder="Enter company name" required><br><br>
-        
-              <label for="role">Role:</label><br>
-              <input type="text" id="role" name="role" placeholder="Enter your role" required><br><br>
-        
-              <label for="duration">Duration:</label><br>
-              <input type="text" id="duration" name="duration" placeholder="e.g., 2 years" required><br><br>
-        
-              <label for="projects">Projects (if any):</label><br>
-              <textarea id="projects" name="projects" rows="4" cols="50" placeholder="Briefly describe the projects you worked on"></textarea><br><br>
+        <form id="registrationForm" class="form-container">
+            <!-- Login Details -->
+            <div class="form-section">
+                <h2>Login Details</h2>
+                <div class="form-group">
+                    <label for="username">Username <span class="required">*</span></label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password <span class="required">*</span></label>
+                    <input type="password" id="password" name="password" required>
+                </div>
             </div>
-        
-          </form>
-        
-          <script>
-            function toggleExperienceFields(show) {
-              const experienceFields = document.getElementById("experience-fields");
-              if (show) {
-                experienceFields.classList.remove("hidden");
-                document.getElementById("company-name").setAttribute("required", "true");
-                document.getElementById("role").setAttribute("required", "true");
-                document.getElementById("duration").setAttribute("required", "true");
-              } else {
-                experienceFields.classList.add("hidden");
-                document.getElementById("company-name").removeAttribute("required");
-                document.getElementById("role").removeAttribute("required");
-                document.getElementById("duration").removeAttribute("required");
-              }
-            }
-         </script>
-           
 
-            <button type="submit">Register</button>
-          
+            <!-- Contact Information -->
+            <div class="form-section">
+                <h2>Contact Information</h2>
+                <div class="form-group">
+                    <label for="name">Full Name <span class="required">*</span></label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label>Gender <span class="required">*</span></label>
+                    <div class="radio-group">
+                        <label>
+                            <input type="radio" name="gender" value="male" required>
+                            Male
+                        </label>
+                        <label>
+                            <input type="radio" name="gender" value="female">
+                            Female
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="age">Age <span class="required">*</span></label>
+                    <input type="number" id="age" name="age" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email <span class="required">*</span></label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Contact Number <span class="required">*</span></label>
+                    <input type="tel" id="phone" name="phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="nationality">Nationality <span class="required">*</span></label>
+                    <select id="nationality" name="nationality" required>
+                        <option value="">Select Nationality</option>
+                        <option value="AF">Afghanistan</option>
+                        <option value="US">United States</option>
+                        <option value="UK">United Kingdom</option>
+                        <!-- Add more options as needed -->
+                    </select>
+                </div>
+            </div>
 
+            <!-- Educational Qualifications -->
+            <div class="form-section">
+                <h2>Educational Qualifications</h2>
+                <div class="form-group">
+                    <label for="course">Course <span class="required">*</span></label>
+                    <select id="course" name="course" required>
+                        <option value="">Select Course</option>
+                        <option value="cs">Computer Science</option>
+                        <option value="it">Information Technology</option>
+                        <option value="se">Software Engineering</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="year">Current Year of Study <span class="required">*</span></label>
+                    <input type="text" id="year" name="year" required>
+                </div>
+                <div class="form-group">
+                    <label for="skills">Skills <span class="required">*</span></label>
+                    <textarea id="skills" name="skills" rows="3" placeholder="Enter your skills, separated by commas (e.g., HTML, CSS, JavaScript)" required></textarea>
+                </div>
+            </div>
+
+            <!-- Work Experience -->
+            <div class="form-section">
+                <h2>Work Experience</h2>
+                <div class="form-group">
+                    <label>Do you have any prior work experience? <span class="required">*</span></label>
+                    <div class="radio-group">
+                        <label>
+                            <input type="radio" name="hasExperience" value="yes" required>
+                            Yes
+                        </label>
+                        <label>
+                            <input type="radio" name="hasExperience" value="no" required>
+                            No
+                        </label>
+                    </div>
+                </div>
+                <div id="experienceFields" style="display: none;">
+                    <div class="form-group">
+                        <label for="company">Company Name <span class="required">*</span></label>
+                        <input type="text" id="company" name="company">
+                    </div>
+                    <div class="form-group">
+                        <label for="role">Role <span class="required">*</span></label>
+                        <input type="text" id="role" name="role">
+                    </div>
+                    <div class="form-group">
+                        <label for="duration">Duration <span class="required">*</span></label>
+                        <input type="text" id="duration" name="duration" placeholder="e.g., 2 years">
+                    </div>
+                    <div class="form-group">
+                        <label for="projects">Projects <span class="required">*</span></label>
+                        <textarea id="projects" name="projects" rows="3" placeholder="Briefly describe the projects you worked on"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="submit-btn">Register</button>
         </form>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('registrationForm');
+            const hasExperience = document.querySelector('input[name="hasExperience"]:checked');
+            const experienceFields = document.getElementById('experienceFields');
+
+            // Toggle work experience fields
+            const experienceRadios = document.querySelectorAll('input[name="hasExperience"]');
+            const experienceFieldsDiv = document.getElementById('experienceFields');
+
+            experienceRadios.forEach(radio => {
+                radio.addEventListener('change', function() {
+                    if (this.value === 'yes') {
+                        experienceFieldsDiv.style.display = 'block';
+                        const requiredFields = experienceFieldsDiv.querySelectorAll('input, textarea');
+                        requiredFields.forEach(field => field.required = true);
+                    } else {
+                        experienceFieldsDiv.style.display = 'none';
+                        const fields = experienceFieldsDiv.querySelectorAll('input, textarea');
+                        fields.forEach(field => {
+                            field.required = false;
+                            field.value = '';
+                            removeError(field);
+                        });
+                    }
+                });
+            });
+
+
+            // Form validation and submission
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                // Basic validation
+                const requiredFields = form.querySelectorAll('[required]');
+                let isValid = true;
+
+                requiredFields.forEach(field => {
+                    if (!field.value.trim()) {
+                        isValid = false;
+                        showError(field, 'This field is required');
+                    } else {
+                        removeError(field);
+                    }
+                });
+
+                // Email validation
+                const email = document.getElementById('email');
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(email.value)) {
+                    isValid = false;
+                    showError(email, 'Please enter a valid email address');
+                }
+
+                // Password validation
+                const password = document.getElementById('password');
+                if (password.value.length < 8) {
+                    isValid = false;
+                    showError(password, 'Password must be at least 8 characters long');
+                }
+
+                // Validate work experience fields if "Yes" is selected
+                const hasExperience = document.querySelector('input[name="hasExperience"]:checked');
+                if (hasExperience && hasExperience.value === 'yes') {
+                    const experienceFields = document.querySelectorAll('#experienceFields input, #experienceFields textarea');
+                    experienceFields.forEach(field => {
+                        if (!field.value.trim()) {
+                            isValid = false;
+                            showError(field, 'This field is required');
+                        } else {
+                            removeError(field);
+                        }
+                    });
+                }
+
+                if (isValid) {
+                    // Show success message
+                    alert('Registration successful!');
+                    form.reset();
+                }
+            });
+
+            function showError(field, message) {
+                removeError(field);
+                const error = document.createElement('div');
+                error.className = 'error';
+                error.textContent = message;
+                field.parentNode.appendChild(error);
+                field.style.borderColor = '#ff4444';
+            }
+
+            function removeError(field) {
+                const error = field.parentNode.querySelector('.error');
+                if (error) {
+                    error.remove();
+                }
+                field.style.borderColor = '';
+            }
+        });
+    </script>
 </body>
 </html>
+
